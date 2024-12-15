@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "862428239684",
+    "project_id": "pembersihkulkas-6f959",
+    "storage_bucket": "pembersihkulkas-6f959.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:862428239684:android:62968b409d69218feea911",
+        "android_client_info": {
+          "package_name": "com.pembersihkulkas.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWPoGvdSL0lVJ3bjnreLrXpA6ENBiYQDk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

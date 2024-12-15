@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pembersih_kulkas/services/services.dart';
+import 'package:pembersih_kulkas/view/widgets/widgets.dart';
 
 part '../login/akunpage.dart';
 part '../login/loginpage.dart';

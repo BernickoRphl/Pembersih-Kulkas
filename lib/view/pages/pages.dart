@@ -19,3 +19,5 @@ part 'profile_view.dart';
 part 'splashpage.dart';
 part 'home_view.dart';
 part 'custom_view.dart';
+part 'beranda_view.dart';
+part 'tambah_resep.dart';

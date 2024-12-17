@@ -4,7 +4,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:pembersih_kulkas/data/network/base_api_services.dart';
-import 'package:pembersih_kulkas/data/response/add_execption.dart';
+import 'package:pembersih_kulkas/data/add_execption.dart';
 import 'package:pembersih_kulkas/shared/shared.dart';
 
 class NetworkApiServices implements BaseApiServices {

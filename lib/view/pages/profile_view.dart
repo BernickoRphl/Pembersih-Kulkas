@@ -5,50 +5,11 @@ class ProfileView extends StatefulWidget {
   _ProfileViewState createState() => _ProfileViewState();
 }
 
-Widget _buildFoodSuggestionCard({required String title, required String image}) {
-  return Padding(
-    padding: const EdgeInsets.only(right: 10),
-    child: Column(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Image.network(
-            image,
-            width: 100,
-            height: 100,
-            fit: BoxFit.cover,
-          ),
-        ),
-        SizedBox(height: 5),
-        Text(
-          title,
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-        ),
-      ],
-    ),
-  );
-}
 
 class _ProfileViewState extends State<ProfileView> {
   HomeViewmodel homeViewmodel = HomeViewmodel();
   List<Recipe> recipes = [];
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   fetchRecipes();
-  // }
-
-  // Future<void> fetchRecipes() async {
-  //   try {
-  //     final fetchedRecipes = await homeViewmodel.getRecipeList();
-  //     setState(() {
-  //       recipes = fetchedRecipes;
-  //     });
-  //   } catch (e) {
-  //     print('Error: $e');
-  //   }
-  // }
+  int _currentIndex = 2; // Set index untuk Profile sebagai yang aktif
 
   @override
   Widget build(BuildContext context) {
@@ -96,26 +57,25 @@ class _ProfileViewState extends State<ProfileView> {
                 ],
               ),
               SizedBox(height: 20),
-             Row(
-  children: [
-    SizedBox(width: 20),
-    Expanded(
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: List.generate(
-            5, // Jumlah makanan random
-            (index) => _buildFoodSuggestionCard(
-              title: 'Food ${index + 1}',
-              image:
-                  'https://via.placeholder.com/100', // Placeholder image URL
-            ),
-          ),
-        ),
-      ),
-    ),
-  ],
-),
+              Row(
+                children: [
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: List.generate(
+                          5, // Jumlah makanan random
+                          (index) => _buildFoodSuggestionCard(
+                            title: 'Food ${index + 1}',
+                            image: 'https://via.placeholder.com/100', // Placeholder image URL
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               SizedBox(height: 20),
               TextField(
                 decoration: InputDecoration(
@@ -171,22 +131,45 @@ class _ProfileViewState extends State<ProfileView> {
             label: 'Profile',
           ),
         ],
+        currentIndex: _currentIndex, // Set current index
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index; // Update current index
+          });
+          // Tambahkan logika navigasi sesuai kebutuhan
+          if (index == 0) {
+            // Navigasi ke Home
+            Navigator.pushReplacementNamed(context, '/home'); // Ganti dengan rute yang sesuai
+          } else if (index == 1) {
+            // Navigasi ke Cook
+            Navigator.pushReplacementNamed(context, '/cook'); // Ganti dengan rute yang sesuai
+          }
+        },
       ),
     );
   }
 
-  Widget _buildStatColumn(String label, String count) {
-    return Column(
-      children: [
-        Text(
-          count,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-        Text(
-          label,
-          style: TextStyle(fontSize: 14, color: Colors.grey),
-        ),
-      ],
+  Widget _buildFoodSuggestionCard({required String title, required String image}) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 10),
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.network(
+              image,
+              width: 100,
+              height: 100,
+              fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(height: 5),
+          Text(
+            title,
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
     );
   }
 

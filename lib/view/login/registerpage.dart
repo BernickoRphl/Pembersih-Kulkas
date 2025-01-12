@@ -118,18 +118,16 @@ class _RegisterPageState extends State<RegisterPage> {
                               isLoading = true;
                             });
 
-                            // Kirim data ke backend Laravel
-                            final response = await AuthService.register(
-                              ctrlEmail.text.trim(),
-                              ctrlPass.text.trim(),
-                            );
+                            try {
+                              // final response = await AuthService.register(
+                              //   ctrlEmail.text.trim(),
+                              //   ctrlPass.text.trim(),
+                              // );
 
-                            setState(() {
-                              isLoading = false;
-                            });
+                              setState(() {
+                                isLoading = false;
+                              });
 
-                            if (response.statusCode == 200) {
-                              // Registrasi berhasil
                               Fluttertoast.showToast(
                                 msg: "Registration successful!",
                                 toastLength: Toast.LENGTH_SHORT,
@@ -143,15 +141,18 @@ class _RegisterPageState extends State<RegisterPage> {
                                   builder: (context) => LoginPage(),
                                 ),
                               );
-                            } else {
-                              // Registrasi gagal
+                            } catch (e) {
+                              setState(() {
+                                isLoading = false;
+                              });
                               Fluttertoast.showToast(
-                                msg: "Registration failed: ${response.body}",
-                                toastLength: Toast.LENGTH_SHORT,
+                                msg: "Error: $e",
+                                toastLength: Toast.LENGTH_LONG,
                                 gravity: ToastGravity.BOTTOM,
                                 backgroundColor: Colors.red,
                                 textColor: Colors.white,
                               );
+                              print("Error during registration: $e");
                             }
                           }
                         },

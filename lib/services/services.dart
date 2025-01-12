@@ -2,6 +2,9 @@
 // import 'package:firebase_core/firebase_core.dart';
 // import 'package:google_sign_in/google_sign_in.dart';
 import 'dart:convert';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:dio/dio.dart';
 
-part 'authservice.dart';
+part 'auth_service.dart';

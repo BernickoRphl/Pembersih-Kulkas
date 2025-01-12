@@ -88,24 +88,24 @@ class _LoginPageState extends State<LoginPage> {
                                 isLoading = true;
                               });
 
-                              final response = await AuthService.login(
-                                ctrlEmail.text.trim(),
-                                ctrlPass.text.trim(),
-                              );
+                              // final response = await AuthService.login(
+                              //   ctrlEmail.text.trim(),
+                              //   ctrlPass.text.trim(),
+                              // );
 
                               setState(() {
                                 isLoading = false;
                               });
 
-                              if (response.statusCode == 200) {
-                                UiToast.toastSuccess("Login successful!");
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => MenuPage()),
-                                );
-                              } else {
-                                UiToast.toastError("Login failed: ${response.body}");
-                              }
+                              // if (response.statusCode == 200) {
+                              //   UiToast.toastSuccess("Login successful!");
+                              //   Navigator.pushReplacement(
+                              //     context,
+                              //     MaterialPageRoute(builder: (context) => MenuPage()),
+                              //   );
+                              // } else {
+                              //   UiToast.toastError("Login failed: ${response.body}");
+                              // }
                             }
                           },
                           style: ElevatedButton.styleFrom(
@@ -142,25 +142,25 @@ class _LoginPageState extends State<LoginPage> {
                             final User? user = userCredential.user;
 
                             if (user != null) {
-                              final response = await AuthService.googleLogin(
-                                user.uid,
-                                user.email ?? '',
-                                user.displayName ?? '',
-                              );
+                              // final response = await AuthService.googleLogin(
+                              //   user.uid,
+                              //   user.email ?? '',
+                              //   user.displayName ?? '',
+                              // );
 
                               setState(() {
                                 isLoading = false;
                               });
 
-                              if (response.statusCode == 200) {
-                                UiToast.toastSuccess("Welcome back ${user.displayName}");
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => MenuPage()),
-                                );
-                              } else {
-                                UiToast.toastError("Google login failed: ${response.body}");
-                              }
+                            //   if (response.statusCode == 200) {
+                            //     UiToast.toastSuccess("Welcome back ${user.displayName}");
+                            //     Navigator.pushReplacement(
+                            //       context,
+                            //       MaterialPageRoute(builder: (context) => MenuPage()),
+                            //     );
+                            //   } else {
+                            //     UiToast.toastError("Google login failed: ${response.body}");
+                            //   }
                             }
                           } else {
                             setState(() {

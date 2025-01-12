@@ -27,3 +27,4 @@ part 'beranda_view.dart';
 part 'tambah_resep.dart';
 part 'welcome_view.dart';
 part 'chat_page.dart';
+part 'login_screen.dart';

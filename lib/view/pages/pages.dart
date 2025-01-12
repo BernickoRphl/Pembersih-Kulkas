@@ -1,17 +1,21 @@
 import 'dart:async';
-
+import 'dart:convert';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pembersih_kulkas/model/model.dart';
 import 'package:pembersih_kulkas/services/services.dart';
 import 'package:pembersih_kulkas/view/widgets/widgets.dart';
 import 'package:pembersih_kulkas/viewmodel/home_viewmodel.dart';
+import 'package:dash_chat_2/dash_chat_2.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
-part '../login/akunpage.dart';
+// part '../login/akunpage.dart';
 part '../login/loginpage.dart';
 part '../login/registerpage.dart';
 part 'main_menu.dart';
@@ -21,3 +25,5 @@ part 'home_view.dart';
 part 'custom_view.dart';
 part 'beranda_view.dart';
 part 'tambah_resep.dart';
+part 'welcome_view.dart';
+part 'chat_page.dart';

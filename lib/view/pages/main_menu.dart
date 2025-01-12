@@ -12,7 +12,7 @@ class _MenuPageState extends State<MenuPage> {
   int _selectedIndex = 0;
 
   static List<Widget> _widgetOptions = <Widget>[
-    AkunPage()
+    // AkunPage()
   ];
 
   void _onItemTapped(int index){

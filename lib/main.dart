@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
-import 'package:pembersih_kulkas/view/chat_page.dart';
 import 'package:pembersih_kulkas/view/pages/pages.dart';
 
 void enablePlatformOverrideForDesktop(){
@@ -31,8 +30,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      // home: ProfileView(),
-      home: ChatPage(),
+      home: WelcomePage(),
+      // home: ChatPage(),
     );
   }
 }

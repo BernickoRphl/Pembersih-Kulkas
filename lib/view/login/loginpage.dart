@@ -8,7 +8,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final _loginKey = GlobalKey<FormState>();
   final ctrlEmail = TextEditingController();
   final ctrlPass = TextEditingController();
@@ -83,7 +82,32 @@ class _LoginPageState extends State<LoginPage> {
                     Container(
                       width: double.infinity,
                       child: ElevatedButton(
-                          onPressed: () async {},
+                          onPressed: () async {
+                            if (_loginKey.currentState!.validate()) {
+                              setState(() {
+                                isLoading = true;
+                              });
+
+                              final response = await AuthService.login(
+                                ctrlEmail.text.trim(),
+                                ctrlPass.text.trim(),
+                              );
+
+                              setState(() {
+                                isLoading = false;
+                              });
+
+                              if (response.statusCode == 200) {
+                                UiToast.toastSuccess("Login successful!");
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => MenuPage()),
+                                );
+                              } else {
+                                UiToast.toastError("Login failed: ${response.body}");
+                              }
+                            }
+                          },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue,
                               elevation: 0,
@@ -98,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     SizedBox(height: 16),
                     Divider(thickness: 2),
-                    SizedBox(height: 16), 
+                    SizedBox(height: 16),
                     Container(
                       width: double.infinity,
                       child: ElevatedButton.icon(
@@ -106,23 +130,44 @@ class _LoginPageState extends State<LoginPage> {
                           setState(() {
                             isLoading = true;
                           });
-                          await AuthService.signInWithGoogle().then((value) {
-                            setState(() {
-                              isLoading = false;
-                            });
-                            UiToast.toastSuccess("Welcome back ${value.user!.displayName}");
-                            Navigator.pushReplacement(
-                              context, MaterialPageRoute(
-                                builder: (context) => MenuPage()
-                              )
+
+                          final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+                          if (googleUser != null) {
+                            final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+                            final AuthCredential credential = GoogleAuthProvider.credential(
+                              accessToken: googleAuth.accessToken,
+                              idToken: googleAuth.idToken,
                             );
-                          }).onError((error, stackTrace) {
+                            final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+                            final User? user = userCredential.user;
+
+                            if (user != null) {
+                              final response = await AuthService.googleLogin(
+                                user.uid,
+                                user.email ?? '',
+                                user.displayName ?? '',
+                              );
+
+                              setState(() {
+                                isLoading = false;
+                              });
+
+                              if (response.statusCode == 200) {
+                                UiToast.toastSuccess("Welcome back ${user.displayName}");
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => MenuPage()),
+                                );
+                              } else {
+                                UiToast.toastError("Google login failed: ${response.body}");
+                              }
+                            }
+                          } else {
                             setState(() {
                               isLoading = false;
                             });
-                            UiToast.toastError("Gagal Sign In karena: ${error.toString()}");
-                            print("Gagal Sign In karena: ${error.toString()}");
-                          });
+                            UiToast.toastError("Google sign-in cancelled");
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
@@ -151,14 +196,10 @@ class _LoginPageState extends State<LoginPage> {
           Align(
             alignment: Alignment(0, 0.96),
             child: GestureDetector(
-              onTap: (){
-                Fluttertoast.showToast(
-                  msg: "Move to register page.",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.BOTTOM,
-                  backgroundColor: Colors.green,
-                  textColor: Colors.white,
-                  fontSize: 15
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RegisterPage()),
                 );
               },
               child: Text("Don't have account? Sign up here.",
